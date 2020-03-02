@@ -34,12 +34,6 @@ public class Main extends Application {
     @FXML
     private Button closeButton;
 
-    // FXML-file: PopupIPAddress.fxml
-    @FXML
-    private TextField ipAddressInput;
-    @FXML
-    private Button joinIPAddressButton;
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -84,7 +78,7 @@ public class Main extends Application {
         return loader.load();
     }
 
-    public void popupIPAddress() {
+    private void popupIPAddress() {
         Stage ipPopup = new IPAddressPopup(primaryStage, e -> System.out.println(e.getMessage()));
     }
 
