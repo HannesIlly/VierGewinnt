@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="content" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Main">
+    <!--stylesheets="view/style.css"-->
+    <MenuBar>
+        <Menu text="Datei">
+            <MenuItem fx:id="closeMenuBar" text="Beenden" onAction="#close"/>
+        </Menu>
+        <Menu text="Spiel">
+            <Menu text="Neu">
+                <MenuItem fx:id="createMenuBar" text="Mehrspieler (Netzwerk)" onAction="#createNewGame"/>
+            </Menu>
+            <MenuItem fx:id="joinMenuBar" text="Spiel beitreten" onAction="#joinGame"/>
+        </Menu>
+    </MenuBar>
+    <Label styleClass="h1, container" text="Vier Gewinnt"/>
+    <BorderPane styleClass="container">
+        <top>
+            <Label styleClass="h3" text="Name"/>
+        </top>
+        <left>
+            <TextField fx:id="nameInput"/>
+        </left>
+    </BorderPane>
+    <Separator/>
+    <BorderPane styleClass="container">
+        <top>
+            <Label styleClass="h2" text="Neues Spiel"/>
+        </top>
+        <left>
+            <VBox>
+                <VBox styleClass="container">
+                    <HBox>
+                        <Label styleClass="h3" text="Spiel erstellen"/>
+                    </HBox>
+                    <HBox>
+                        <Button fx:id="createButton" text="Mehrspieler (Netzwerk)" onAction="#createNewGame"/>
+                    </HBox>
+                    <HBox>
+                        <Button disable="true" text="Mehrspieler (Lokal)"/>
+                    </HBox>
+                    <HBox>
+                        <Button disable="true" text="Einzelspieler (Gegen die KI)"/>
+                    </HBox>
+                </VBox>
+                <VBox styleClass="container">
+                    <HBox>
+                        <Label styleClass="h3" text="Spiel beitreten"/>
+                    </HBox>
+                    <HBox>
+                        <Button fx:id="joinButton" text="Mehrspieler (Netzwerk)" onAction="#joinGame"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </left>
+    </BorderPane>
+    <Separator/>
+    <HBox styleClass="container">
+        <Button fx:id="closeButton" text="Beenden" onAction="#close"/>
+    </HBox>
+</VBox>
