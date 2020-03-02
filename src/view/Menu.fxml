@@ -4,17 +4,16 @@
 <?import javafx.scene.layout.*?>
 
 <VBox id="content" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Main">
-    <!--stylesheets="view/style.css"-->
+      xmlns:fx="http://javafx.com/fxml/1">
     <MenuBar>
         <Menu text="Datei">
-            <MenuItem fx:id="closeMenuBar" text="Beenden" onAction="#close"/>
+            <MenuItem fx:id="closeMenuBar" text="Beenden"/>
         </Menu>
         <Menu text="Spiel">
             <Menu text="Neu">
-                <MenuItem fx:id="createMenuBar" text="Mehrspieler (Netzwerk)" onAction="#createNewGame"/>
+                <MenuItem fx:id="createMenuBar" text="Mehrspieler (Netzwerk)"/>
             </Menu>
-            <MenuItem fx:id="joinMenuBar" text="Spiel beitreten" onAction="#joinGame"/>
+            <MenuItem fx:id="joinMenuBar" text="Spiel beitreten"/>
         </Menu>
     </MenuBar>
     <Label styleClass="h1, container" text="Vier Gewinnt"/>
@@ -38,7 +37,7 @@
                         <Label styleClass="h3" text="Spiel erstellen"/>
                     </HBox>
                     <HBox>
-                        <Button fx:id="createButton" text="Mehrspieler (Netzwerk)" onAction="#createNewGame"/>
+                        <Button fx:id="createButton" text="Mehrspieler (Netzwerk)"/>
                     </HBox>
                     <HBox>
                         <Button disable="true" text="Mehrspieler (Lokal)"/>
@@ -52,7 +51,7 @@
                         <Label styleClass="h3" text="Spiel beitreten"/>
                     </HBox>
                     <HBox>
-                        <Button fx:id="joinButton" text="Mehrspieler (Netzwerk)" onAction="#joinGame"/>
+                        <Button fx:id="joinButton" text="Mehrspieler (Netzwerk)"/>
                     </HBox>
                 </VBox>
             </VBox>
@@ -60,6 +59,6 @@
     </BorderPane>
     <Separator/>
     <HBox styleClass="container">
-        <Button fx:id="closeButton" text="Beenden" onAction="#close"/>
+        <Button fx:id="closeButton" text="Beenden"/>
     </HBox>
 </VBox>

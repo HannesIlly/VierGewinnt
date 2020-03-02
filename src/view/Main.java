@@ -5,75 +5,91 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 public class Main extends Application {
-    @FXML
-    private TextField name;
-    @FXML
-    private TextField ipAddress;
 
-    private Stage ipPopup;
+    private Stage primaryStage;
+
+    private FXMLLoader loader;
+
+    // FXML-file: Menu.fxml
+    @FXML
+    private MenuItem closeMenuBar;
+    @FXML
+    private MenuItem createMenuBar;
+    @FXML
+    private MenuItem joinMenuBar;
+    @FXML
+    private TextField nameInput;
+    @FXML
+    private Button createButton;
+    @FXML
+    private Button joinButton;
+    @FXML
+    private Button closeButton;
+
+    // FXML-file: PopupIPAddress.fxml
+    @FXML
+    private TextField ipAddressInput;
+    @FXML
+    private Button joinIPAddressButton;
 
     public static void main(String[] args) {
         launch(args);
     }
 
+    public Main() {
+        this.loader = new FXMLLoader();
+        this.loader.setController(this);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent menu = FXMLLoader.load(getClass().getResource("Menu.fxml"));
+        primaryStage = stage;
+
+        Parent menu = loadFXML("Menu.fxml");
         Scene contentScene = new Scene(menu);
         contentScene.getStylesheets().add("view/style.css");
 
-        stage.setOnCloseRequest(e -> close());
-        stage.setTitle("Vier Gewinnt");
-        stage.setScene(contentScene);
-        stage.show();
+        closeMenuBar.setOnAction(e -> close());
+        closeButton.setOnAction(e -> close());
+
+        createMenuBar.setOnAction(e -> close());
+        createButton.setOnAction(e -> close());
+
+        joinMenuBar.setOnAction(e -> popupIPAddress());
+        joinButton.setOnAction(e -> popupIPAddress());
+
+        primaryStage.setOnCloseRequest(e -> close());
+        primaryStage.setTitle("Vier Gewinnt");
+        primaryStage.setScene(contentScene);
+        primaryStage.show();
     }
 
-
-    public void createNewGame() {
-        System.out.println("Spiel erstellen");
+    /**
+     * Loads the root parent object from the given fxml-file.
+     *
+     * @param name The name of the fxml-file, that is loaded.
+     * @return The parent
+     * @throws IOException If an exception occurs when loading the fxml-file.
+     */
+    private Parent loadFXML(String name) throws IOException {
+        loader.setLocation(getClass().getResource(name));
+        return loader.load();
     }
 
-    public void joinGame() throws IOException {
-        System.out.println("Spiel beitreten");
-        ipPopup = new Stage(StageStyle.DECORATED);
-        Parent menu;// = FXMLLoader.load(getClass().getResource("PopupIPAddress.fxml"));
-
-        // load and set controller
-        FXMLLoader loader = new FXMLLoader();
-        loader.setController(this);
-        loader.setLocation(getClass().getResource("PopupIPAddress.fxml"));
-        menu = loader.load();
-
-        Scene scene = new Scene(menu);
-        scene.getStylesheets().add("view/style.css");
-
-        ipPopup.setTitle("Spiel beitreten");
-        ipPopup.initModality(Modality.APPLICATION_MODAL);
-        ipPopup.setWidth(300);
-        ipPopup.setHeight(200);
-        ipPopup.setScene(scene);
-        ipPopup.show();
+    public void popupIPAddress() {
+        Stage ipPopup = new IPAddressPopup(primaryStage, e -> System.out.println(e.getMessage()));
     }
 
     public void close() {
         // TODO create close operations
         System.exit(0);
-    }
-
-    public void joinGameIPAddress() {
-        // TODO oder doch lieber durch Quelltext erzeugen?
-        String playerName = (name != null) ? name.getText() : "Player";
-        String ipAddress = this.ipAddress.getText();
-        System.out.println(playerName + " hat ein Spiel betreten mit IP-Adresse: " + ipAddress);
-        if (ipPopup != null) ipPopup.close();
-        else System.out.println("Fehler");
     }
 }
