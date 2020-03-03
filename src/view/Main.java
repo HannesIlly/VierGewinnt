@@ -8,7 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.VierGewinnt;
 
 import java.io.IOException;
 
@@ -18,17 +20,23 @@ public class Main extends Application {
 
     private FXMLLoader loader;
 
+    private GameViewFX gameView;
+
     // FXML-file: Menu.fxml
     @FXML
     private MenuItem closeMenuBar;
     @FXML
     private MenuItem createMenuBar;
     @FXML
+    private MenuItem createLocalMultiplayerMenuBar;
+    @FXML
     private MenuItem joinMenuBar;
     @FXML
     private TextField nameInput;
     @FXML
     private Button createButton;
+    @FXML
+    private Button createLocalMultiplayerButton;
     @FXML
     private Button joinButton;
     @FXML
@@ -41,6 +49,13 @@ public class Main extends Application {
     public Main() {
         this.loader = new FXMLLoader();
         this.loader.setController(this);
+
+        VierGewinnt game = new VierGewinnt();
+        this.gameView = new GameViewFX(game, e -> {
+            game.placePiece(e.getColumn());
+            this.gameView.drawGame();
+        });
+        this.gameView.drawGame();
     }
 
     @Override
@@ -54,8 +69,11 @@ public class Main extends Application {
         closeMenuBar.setOnAction(e -> close());
         closeButton.setOnAction(e -> close());
 
-        createMenuBar.setOnAction(e -> close());
-        createButton.setOnAction(e -> close());
+        //createMenuBar.setOnAction(e -> popupGameScene());
+        //createButton.setOnAction(e -> popupGameScene());
+
+        createLocalMultiplayerMenuBar.setOnAction(e -> popupGameScene());
+        createLocalMultiplayerButton.setOnAction(e -> popupGameScene());
 
         joinMenuBar.setOnAction(e -> popupIPAddress());
         joinButton.setOnAction(e -> popupIPAddress());
@@ -79,7 +97,19 @@ public class Main extends Application {
     }
 
     private void popupIPAddress() {
-        Stage ipPopup = new IPAddressPopup(primaryStage, e -> System.out.println(e.getMessage()));
+        Stage ipPopup = new IPAddressPopup(primaryStage, e -> System.out.println(nameInput.getText() + " tritt Spiel bei mit IP-Adresse " + e.getMessage()));
+    }
+
+    private void popupGameScene() {
+        this.gameView.drawGame();
+
+        Stage popup = new Popup("Vier Gewinnt TEST", primaryStage);
+        BorderPane root = new BorderPane();
+        root.setCenter(gameView.getCanvas());
+        popup.setScene(new Scene(root));
+        popup.setWidth(800);
+        popup.setHeight(600);
+        popup.show();
     }
 
     public void close() {

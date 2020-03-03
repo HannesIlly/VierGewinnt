@@ -1,61 +1,76 @@
 package view;
 
-import javafx.geometry.Orientation;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
+import javafx.event.EventHandler;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import model.VierGewinnt;
 
 public class GameViewFX {
-    
+
     private VierGewinnt game;
-    
-    public GameViewFX(VierGewinnt game) {
+
+    private Canvas canvas;
+    private GraphicsContext g;
+
+    private static final int FIELD_SIZE = 75;
+    private static final int FIELD_MARGIN = 5;
+
+    public GameViewFX(VierGewinnt game, EventHandler<GameInputEvent> gameInputHandler) {
         this.game = game;
+
+        int width = game.getBoard().getColumns() * (FIELD_SIZE + FIELD_MARGIN) - FIELD_MARGIN;
+        int height = game.getBoard().getRows() * (FIELD_SIZE + FIELD_MARGIN) - FIELD_MARGIN;
+        this.canvas = new Canvas(width, height);
+        g = canvas.getGraphicsContext2D();
+
+        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, e -> System.out.println("x: " + e.getX() + " y: " + e.getY()));
+        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            int column = (int) e.getX() / (FIELD_SIZE + FIELD_MARGIN);
+            int columnWithMargin = ((int) e.getX() + FIELD_MARGIN) / (FIELD_SIZE + FIELD_MARGIN);
+            if (column == columnWithMargin) {
+                GameInputEvent event = new GameInputEvent(column + 1);
+                gameInputHandler.handle(event);
+            }
+        });
     }
-    
-    public Scene getScene() {
-        TilePane gameBoard = new TilePane(Orientation.VERTICAL, 1, 1);
-        gameBoard.setStyle("-fx-background-color: black;-fx-padding: 1;");
-        
-        int width = 100 * game.getBoard().getColumns() + 8;
-        int height = 100 * game.getBoard().getRows() + 7;
-        gameBoard.setPrefWidth(width);
-        gameBoard.setMaxWidth(width);
-        gameBoard.setMinWidth(width);
-        
-        gameBoard.setPrefHeight(height);
-        gameBoard.setMaxHeight(height);
-        gameBoard.setMinHeight(height);
-        
-        
-        ImageView[][] boardImages = new ImageView[game.getBoard().getColumns()][game.getBoard().getRows()];
-        for (int x = 0; x < boardImages.length; x++) {
-            for (int y = boardImages[x].length - 1; y >= 0; y--) {
-                switch (game.getBoard().getField(x, y)) {
-                case 1:
-                    boardImages[x][y] = new ImageView(new Image("resources/test/red.png"));
-                    break;
-                case 2:
-                    boardImages[x][y] = new ImageView(new Image("resources/test/yellow.png"));
-                    break;
-                default:
-                    boardImages[x][y] = new ImageView(new Image("resources/test/empty.png"));
-                    break;
-                }
-                //boardImages[x][y].setOnMouseClicked(e -> ((ImageView) e.getSource()).setImage(new Image("resources/test/red.png")));
-                gameBoard.getChildren().add(boardImages[x][y]);
+
+    public Canvas getCanvas() {
+        return this.canvas;
+    }
+
+    public void drawGame() {
+        int width = game.getBoard().getColumns();
+        int height = game.getBoard().getRows();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                drawField(x, y);
             }
         }
-        
-        BorderPane container = new BorderPane();
-        container.setTop(new VBox(new Label("Vier Gewinnt"), new HBox(new Label(game.getPlayers()[0]), new Label(" gegen "), new Label(game.getPlayers()[1]))));
-        container.setCenter(gameBoard);
-        return new Scene(container);
     }
+
+    private void drawField(int column, int row) {
+        drawField(column, row, false);
+    }
+
+    private void drawField(int column, int row, boolean highlight) {
+        g.setStroke(Color.BLACK);
+        int x = (FIELD_SIZE + FIELD_MARGIN) * column;
+        int y = (int)canvas.getHeight() - (FIELD_SIZE + FIELD_MARGIN) * (row + 1) + FIELD_MARGIN;
+        int size = FIELD_SIZE;
+        switch (game.getBoard().getField(column, row)) {
+            case 1:
+                g.setFill(Color.RED);
+                g.fillOval(x, y, size, size);
+                break;
+            case 2:
+                g.setFill(Color.YELLOW);
+                g.fillOval(x, y, size, size);
+                break;
+            default:
+        }
+        g.strokeOval(x, y, size, size);
+    }
+
 }

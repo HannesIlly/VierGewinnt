@@ -12,6 +12,7 @@
         <Menu text="Spiel">
             <Menu text="Neu">
                 <MenuItem fx:id="createMenuBar" text="Mehrspieler (Netzwerk)"/>
+                <MenuItem fx:id="createLocalMultiplayerMenuBar" text="Mehrspieler (Lokal)"/>
             </Menu>
             <MenuItem fx:id="joinMenuBar" text="Spiel beitreten"/>
         </Menu>
@@ -40,7 +41,7 @@
                         <Button fx:id="createButton" text="Mehrspieler (Netzwerk)"/>
                     </HBox>
                     <HBox>
-                        <Button disable="true" text="Mehrspieler (Lokal)"/>
+                        <Button fx:id="createLocalMultiplayerButton" text="Mehrspieler (Lokal)"/>
                     </HBox>
                     <HBox>
                         <Button disable="true" text="Einzelspieler (Gegen die KI)"/>

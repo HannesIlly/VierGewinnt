@@ -1,9 +1,5 @@
 package view;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -22,6 +18,10 @@ import javafx.stage.Stage;
 import model.VierGewinnt;
 import net.Client;
 import net.server.Server;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class View extends Application {
     // TextFields
@@ -68,7 +68,7 @@ public class View extends Application {
         this.menuScene = new Scene(root);
         
         VierGewinnt game = new VierGewinnt();
-        GameViewFX gameView = new GameViewFX(game);
+        GameViewFX gameView = new GameViewFX(game, e -> System.out.println(""));
         game.placePiece(4);
         game.placePiece(2);
         game.placePiece(3);
@@ -84,7 +84,7 @@ public class View extends Application {
         primaryStage.setOnCloseRequest(e -> close());
         primaryStage.setTitle("Vier Gewinnt");
         // primaryStage.setScene(menuScene);
-        primaryStage.setScene(gameView.getScene());
+        //primaryStage.setScene(gameView.getScene());
         primaryStage.show();
     }
     
