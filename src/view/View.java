@@ -68,7 +68,7 @@ public class View extends Application {
         this.menuScene = new Scene(root);
         
         VierGewinnt game = new VierGewinnt();
-        GameViewFX gameView = new GameViewFX(game, e -> System.out.println(""));
+        GameViewFX gameView = new GameViewFX(game, e -> System.out.println(""), e -> System.out.println(""));
         game.placePiece(4);
         game.placePiece(2);
         game.placePiece(3);

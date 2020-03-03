@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.VierGewinnt;
 
@@ -57,13 +56,6 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        VierGewinnt game = new VierGewinnt();
-        this.gameView = new GameViewFX(game, e -> {
-            game.placePiece(e.getColumn());
-            this.gameView.drawGame();
-        });
-        this.gameView.drawGame();
     }
 
     @Override
@@ -77,7 +69,7 @@ public class Main extends Application {
         closeMenuBar.setOnAction(e -> close());
         closeButton.setOnAction(e -> close());
 
-        //createMenuBar.setOnAction(e -> popupGameScene());
+        //createMenuBar.setOnAction(e -> popupScene());
         //createButton.setOnAction(e -> popupGameScene());
 
         createLocalMultiplayerMenuBar.setOnAction(e -> gameView());
@@ -111,14 +103,11 @@ public class Main extends Application {
     }
 
     private void gameView() {
+        VierGewinnt game = new VierGewinnt();
+        this.gameView = new GameViewFX(game, e -> game.placePiece(e.getColumn()), e -> menuView());
         this.gameView.drawGame();
-        VBox content = new VBox(gameView.getCanvas());
-        content.getStyleClass().add("container");
-        Button back = new Button("Zurück");
-        back.setOnAction(e -> menuView());
 
-        content.getChildren().add(back);
-        contentPane.setLeft(content);
+        contentPane.setLeft(gameView.getGameView());
     }
 
     private void menuView() {
