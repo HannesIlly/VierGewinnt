@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.VierGewinnt;
 
@@ -18,9 +19,13 @@ public class Main extends Application {
 
     private Stage primaryStage;
 
-    private FXMLLoader loader;
-
     private GameViewFX gameView;
+
+    private Parent menu;
+
+    // FXML-file: Frame.fxml
+    @FXML
+    private BorderPane contentPane;
 
     // FXML-file: Menu.fxml
     @FXML
@@ -47,8 +52,11 @@ public class Main extends Application {
     }
 
     public Main() {
-        this.loader = new FXMLLoader();
-        this.loader.setController(this);
+        try {
+            menu = loadFXML("Menu.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         VierGewinnt game = new VierGewinnt();
         this.gameView = new GameViewFX(game, e -> {
@@ -61,9 +69,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
-
-        Parent menu = loadFXML("Menu.fxml");
-        Scene contentScene = new Scene(menu);
+        Parent frame = loadFXML("Frame.fxml");
+        contentPane.setLeft(menu);
+        Scene contentScene = new Scene(frame);
         contentScene.getStylesheets().add("view/style.css");
 
         closeMenuBar.setOnAction(e -> close());
@@ -72,8 +80,8 @@ public class Main extends Application {
         //createMenuBar.setOnAction(e -> popupGameScene());
         //createButton.setOnAction(e -> popupGameScene());
 
-        createLocalMultiplayerMenuBar.setOnAction(e -> popupGameScene());
-        createLocalMultiplayerButton.setOnAction(e -> popupGameScene());
+        createLocalMultiplayerMenuBar.setOnAction(e -> gameView());
+        createLocalMultiplayerButton.setOnAction(e -> gameView());
 
         joinMenuBar.setOnAction(e -> popupIPAddress());
         joinButton.setOnAction(e -> popupIPAddress());
@@ -92,6 +100,8 @@ public class Main extends Application {
      * @throws IOException If an exception occurs when loading the fxml-file.
      */
     private Parent loadFXML(String name) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setController(this);
         loader.setLocation(getClass().getResource(name));
         return loader.load();
     }
@@ -100,16 +110,19 @@ public class Main extends Application {
         Stage ipPopup = new IPAddressPopup(primaryStage, e -> System.out.println(nameInput.getText() + " tritt Spiel bei mit IP-Adresse " + e.getMessage()));
     }
 
-    private void popupGameScene() {
+    private void gameView() {
         this.gameView.drawGame();
+        VBox content = new VBox(gameView.getCanvas());
+        content.getStyleClass().add("container");
+        Button back = new Button("Zurück");
+        back.setOnAction(e -> menuView());
 
-        Stage popup = new Popup("Vier Gewinnt TEST", primaryStage);
-        BorderPane root = new BorderPane();
-        root.setCenter(gameView.getCanvas());
-        popup.setScene(new Scene(root));
-        popup.setWidth(800);
-        popup.setHeight(600);
-        popup.show();
+        content.getChildren().add(back);
+        contentPane.setLeft(content);
+    }
+
+    private void menuView() {
+        contentPane.setLeft(menu);
     }
 
     public void close() {
