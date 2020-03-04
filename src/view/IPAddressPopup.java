@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
+import view.event.TextInputEvent;
 
 import java.io.IOException;
 
@@ -24,7 +25,7 @@ public class IPAddressPopup extends Popup {
     public IPAddressPopup(Window owner, EventHandler<TextInputEvent> joinAction) {
         super("Spiel beitreten", owner);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("IPAddressPopup.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/IPAddressPopup.fxml"));
         loader.setController(this);
         Parent root;
         try {
@@ -34,7 +35,7 @@ public class IPAddressPopup extends Popup {
             e.printStackTrace();
         }
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("view/style.css");
+        scene.getStylesheets().add("view/gui/style.css");
 
         // close window
         cancelButton.setOnAction(e -> this.close());

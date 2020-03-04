@@ -64,7 +64,7 @@ public class Main extends Application {
         Parent frame = loadFXML("Frame.fxml");
         contentPane.setLeft(menu);
         Scene contentScene = new Scene(frame);
-        contentScene.getStylesheets().add("view/style.css");
+        contentScene.getStylesheets().add("view/gui/style.css");
 
         closeMenuBar.setOnAction(e -> close());
         closeButton.setOnAction(e -> close());
