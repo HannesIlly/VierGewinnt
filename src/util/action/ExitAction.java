@@ -57,34 +57,10 @@ public class ExitAction extends Action {
     }
 
     @Override
-    public byte[] encode() {
-        byte[] nameData = name.getBytes();
-        byte[] data = new byte[nameData.length + 1];
-        data[0] = (byte) this.exitType;
-        for (int i = 0; i < nameData.length; i++) {
-            data[i + 1] = nameData[i];
-        }
-        return data;
+    public String toString() {
+        return "ExitAction{" +
+                "name='" + name + '\'' +
+                ", exitType=" + exitType +
+                "} " + super.toString();
     }
-
-    /**
-     * Creates a exit-action from the given data.
-     *
-     * @param data The action data.
-     * @return The created action.
-     */
-    public static ExitAction decode(byte[] data) {
-        String name;
-        if (data.length > 0) {
-            byte[] nameData = new byte[data.length - 1];
-            for (int i = 0; i < nameData.length; i++) {
-                nameData[i] = data[i + 1];
-            }
-            name = String.valueOf(data);
-        } else {
-            name = "";
-        }
-        return new ExitAction(name, data[0]);
-    }
-
 }

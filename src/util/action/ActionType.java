@@ -6,5 +6,5 @@ package util.action;
  * @author Hannes Illy
  */
 public enum ActionType {
-    newPlayer, put, undo, exit, newGame, message, error
+    newPlayer, put, exit, newGame, message
 }

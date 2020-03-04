@@ -19,7 +19,7 @@ public class ClientHandler implements Runnable {
     /**
      * The game simulation.
      */
-    private VierGewinnt game = null;
+    private VierGewinnt game;
     /**
      * Indicates to the thread whether to keep running or not.
      */
@@ -38,8 +38,8 @@ public class ClientHandler implements Runnable {
     
     @Override
     public void run() {
-        Action currentAction = null;
-        int currentConnectionNumber = 0;
+        Action currentAction;
+        int currentConnectionNumber;
         while (!isClosed) {
             for (ServerConnection c : connections) {
                 if (c.isActive()) {
@@ -64,9 +64,6 @@ public class ClientHandler implements Runnable {
                                         c.writeAction(currentAction);
                                     }
                                 }
-                            } else {
-                                Action errorAction = new ErrorAction(currentAction);
-                                c.writeAction(errorAction);
                             }
                             break;
                         case newGame:
@@ -85,11 +82,7 @@ public class ClientHandler implements Runnable {
                                 }
                             }
                             break;
-                        case undo:
-                            break;
                         case message:
-                            break;
-                        case error:
                             break;
                         default:
                             throw new IllegalArgumentException("Illegal action type. type = " + currentAction.getType());
@@ -109,18 +102,18 @@ public class ClientHandler implements Runnable {
      */
     public boolean addConnection(Socket connection) {
         synchronized (connections) {
-            for (int i = 0; i < this.connections.length; i++) {
-                synchronized (connections[i]) {
-                    if (!connections[i].isActive()) {
+            for (ServerConnection c : this.connections) {
+                synchronized (c) {
+                    if (!c.isActive()) {
                         try {
-                            connections[i].setSocket(connection);
+                            c.setSocket(connection);
                             return true;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 }
-                
+
             }
         }
         return false;

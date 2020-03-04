@@ -27,28 +27,6 @@ public class PutAction extends Action {
         this.piece = piece;
     }
 
-    @Override
-    public byte[] encode() {
-        byte[] data = new byte[2];
-        data[0] = (byte) column;
-        data[1] = (byte) piece;
-        return data;
-    }
-
-    /**
-     * Creates a put-action from the given data.
-     *
-     * @param data The put action data.
-     * @return The created Action.
-     * @throws IllegalArgumentException If the given data length is invalid.
-     */
-    public static PutAction decode(byte[] data) throws IllegalArgumentException {
-        if (data.length != 2) {
-            throw new IllegalArgumentException("Illegal length of data array. length = " + data.length);
-        }
-        return new PutAction(data[0], data[1]);
-    }
-
     /**
      * Gets the column, where the piece is put in.
      *
@@ -67,4 +45,11 @@ public class PutAction extends Action {
         return this.piece;
     }
 
+    @Override
+    public String toString() {
+        return "PutAction{" +
+                "column=" + column +
+                ", piece=" + piece +
+                "} " + super.toString();
+    }
 }
