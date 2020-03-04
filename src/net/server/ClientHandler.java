@@ -1,13 +1,10 @@
 package net.server;
 
+import model.VierGewinnt;
+import util.action.*;
+
 import java.io.IOException;
 import java.net.Socket;
-
-import model.VierGewinnt;
-import util.action.Action;
-import util.action.ExitAction;
-import util.action.NewPlayerAction;
-import util.action.PutAction;
 
 /**
  * Creates a new client handler that will manage client communication and simulation of the game.
@@ -36,6 +33,7 @@ public class ClientHandler implements Runnable {
         for (int i = 0; i < connections.length; i++) {
             connections[i] = new ServerConnection();
         }
+        game = new VierGewinnt();
     }
     
     @Override

@@ -244,4 +244,25 @@ public class VierGewinnt {
     public int[][] getWinningPieces() {
         return this.winningPieces;
     }
+
+    /**
+     * Sets the name of both players.
+     * @param firstPlayer The first player's name.
+     * @param secondPlayer The second player's name.
+     */
+    public void setPlayerNames(String firstPlayer, String secondPlayer) {
+        this.players[0] = firstPlayer;
+        this.players[1] = secondPlayer;
+    }
+
+    /**
+     * Sets the name of the given player. The playerNumber has to be 1 or 2.
+     * @param playerNumber The player number whose name is set.
+     * @param playerName The name of the player.
+     */
+    public void setPlayerName(int playerNumber, String playerName) {
+        if (playerNumber == 1 || playerNumber == 2) {
+            this.players[playerNumber - 1] = playerName;
+        }
+    }
 }

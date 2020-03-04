@@ -11,8 +11,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.VierGewinnt;
+import net.Client;
+import net.server.Server;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 public class Main extends Application {
 
@@ -72,8 +75,8 @@ public class Main extends Application {
         //createMenuBar.setOnAction(e -> popupScene());
         //createButton.setOnAction(e -> popupGameScene());
 
-        createLocalMultiplayerMenuBar.setOnAction(e -> gameView());
-        createLocalMultiplayerButton.setOnAction(e -> gameView());
+        createLocalMultiplayerMenuBar.setOnAction(e -> gameView(new VierGewinnt()));
+        createLocalMultiplayerButton.setOnAction(e -> gameView(new VierGewinnt()));
 
         joinMenuBar.setOnAction(e -> popupIPAddress());
         joinButton.setOnAction(e -> popupIPAddress());
@@ -102,8 +105,7 @@ public class Main extends Application {
         Stage ipPopup = new IPAddressPopup(primaryStage, e -> System.out.println(nameInput.getText() + " tritt Spiel bei mit IP-Adresse " + e.getMessage()));
     }
 
-    private void gameView() {
-        VierGewinnt game = new VierGewinnt();
+    private void gameView(VierGewinnt game) {
         this.gameView = new GameViewFX(game, e -> game.placePiece(e.getColumn()), e -> menuView());
         this.gameView.drawGame();
 
@@ -112,6 +114,28 @@ public class Main extends Application {
 
     private void menuView() {
         contentPane.setLeft(menu);
+    }
+
+    private void createGameServer() {
+        try {
+            Server server = new Server();
+            new Thread(server).start();
+
+            joinGameServer("127.0.0.1");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void joinGameServer(String ipAddress) {
+        try {
+            Client client = new Client(InetAddress.getByName(ipAddress), this.nameInput.getText());
+            new Thread(client).start();
+
+            gameView(client.getGame());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void close() {

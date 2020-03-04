@@ -1,19 +1,13 @@
 package net;
 
+import model.VierGewinnt;
+import util.action.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-
-import model.VierGewinnt;
-import util.action.Action;
-import util.action.ActionInputDecoder;
-import util.action.ActionOutputEncoder;
-import util.action.ExitAction;
-import util.action.NewGameAction;
-import util.action.NewPlayerAction;
-import util.action.PutAction;
 
 /**
  * Creates a new client, that manages communication to the server and simulates a game.
@@ -86,7 +80,7 @@ public class Client implements Runnable {
     
     @Override
     public void run() {
-        Action currentAction = null;
+        Action currentAction;
         while (!isClosed) {
             // XXX continue here
             if ((currentAction = in.getAction()) != null) {
@@ -124,5 +118,9 @@ public class Client implements Runnable {
         Action close = new ExitAction("Server", ExitAction.PLAYER_EXIT);
         out.send(close);
         isClosed = true;
+    }
+
+    public VierGewinnt getGame() {
+        return this.game;
     }
 }

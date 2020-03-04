@@ -13,7 +13,7 @@ public class Server implements Runnable {
      * The {@link Runnable} that will manage the data transfer and calculations.
      */
     private ClientHandler clientHandler;
-    /*
+    /**
      * Indicates if the server should stop running.
      */
     private boolean isClosed;
