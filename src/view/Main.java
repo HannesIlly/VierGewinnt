@@ -52,7 +52,7 @@ public class Main extends Application {
 
     public Main() {
         try {
-            menu = loadFXML("Menu.fxml");
+            menu = loadFXML("gui/Menu.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,7 +61,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
-        Parent frame = loadFXML("Frame.fxml");
+        Parent frame = loadFXML("gui/Frame.fxml");
         contentPane.setLeft(menu);
         Scene contentScene = new Scene(frame);
         contentScene.getStylesheets().add("view/gui/style.css");

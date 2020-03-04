@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import model.VierGewinnt;
+import view.event.GameInputEvent;
 
 public class GameViewFX {
 
