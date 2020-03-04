@@ -1,11 +1,4 @@
- package net.server;
-
-import util.action.Action;
-import util.action.ActionType;
-import util.action.ExitAction;
-import util.action.NewGameAction;
-import util.action.NewPlayerAction;
-import util.action.PutAction;
+ package util.action;
 
 public class ErrorAction extends Action {
     

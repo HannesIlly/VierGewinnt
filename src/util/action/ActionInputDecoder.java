@@ -8,7 +8,7 @@ import java.util.Queue;
 /**
  * A class that, when executed as a thread, reads the {@link InputStream} and decodes the given information into
  * actions.
- * 
+ *
  * @author Hannes Illy
  */
 public class ActionInputDecoder implements Runnable {
@@ -25,24 +25,22 @@ public class ActionInputDecoder implements Runnable {
      * method. Both the method and the adding of actions to the queue are synchronized.
      */
     private Queue<Action> actions;
-    
+
     /**
      * Creates a new input decoder. This runnable has to be started in a thread, to begin reading and decoding the data
      * from the stream. If not started, the {@code getAction()} method will always return {@code null}.
-     * 
-     * @param inputStream
-     *            The input stream, from which is read.
+     *
+     * @param inputStream The input stream, from which is read.
      */
     public ActionInputDecoder(InputStream inputStream) {
         this.in = inputStream;
         this.actions = new LinkedList<Action>();
     }
-    
+
     /**
      * Creates a new action from the given data. The decoding-overhead-data should be included in the argument array.
-     * 
-     * @param data
-     *            The read action data (including the overhead).
+     *
+     * @param data The read action data (including the overhead).
      * @return The created action.
      */
     private Action createAction(byte[] data) {
@@ -57,45 +55,45 @@ public class ActionInputDecoder implements Runnable {
             actionData[i] = data[i + 2];
         }
         switch (type) {
-        case newPlayer:
-            return NewPlayerAction.decode(actionData);
-        case put:
-            return PutAction.decode(actionData);
-        case newGame:
-            return NewGameAction.decode(actionData);
-        case exit:
-            return ExitAction.decode(actionData);
-        case undo:
-            // TODO undo action
-        case message:
-            // TODO message action
-        case error:
-            // TODO error action
-        default:
-            throw new IllegalArgumentException("Illegal action type. type = " + type);
+            case newPlayer:
+                return NewPlayerAction.decode(actionData);
+            case put:
+                return PutAction.decode(actionData);
+            case newGame:
+                return NewGameAction.decode(actionData);
+            case exit:
+                return ExitAction.decode(actionData);
+            case undo:
+                // TODO undo action
+            case message:
+                // TODO message action
+            case error:
+                // TODO error action
+            default:
+                throw new IllegalArgumentException("Illegal action type. type = " + type);
         }
     }
-    
+
     /**
      * Checks if the {@link InputStream} that is read is still active.
-     * 
+     *
      * @return If the {@link InputStream} is active.
      */
     public boolean isActive() {
         return !this.isClosed;
     }
-    
+
     /**
      * Gets the current action.
-     * 
+     *
      * @return The current action or {@code null} if there is none.
      */
     public Action getAction() {
         synchronized (this.actions) {
-            return this.actions.remove();
+            return this.actions.poll();
         }
     }
-    
+
     @Override
     public void run() {
         int input = 0;
@@ -104,7 +102,7 @@ public class ActionInputDecoder implements Runnable {
         boolean newDataStart = true;
         byte[] readData = {};
         int currentDataPosition = 0;
-        
+
         while (!isClosed) {
             try {
                 // read byte and check if stream is still open
@@ -115,9 +113,9 @@ public class ActionInputDecoder implements Runnable {
                         break; // exit the thread
                     }
                 }
-                
+
                 readByte = (byte) input;
-                
+
                 if (newDataStart) {
                     // Signal that the next incoming data belongs to this one
                     newDataStart = false;
@@ -145,7 +143,7 @@ public class ActionInputDecoder implements Runnable {
                         }
                         newDataStart = true;
                     }
-                    
+
                 }
                 currentDataPosition++;
             } catch (IOException e) {
@@ -154,7 +152,7 @@ public class ActionInputDecoder implements Runnable {
         }
         this.isClosed = true;
     }
-    
+
     /**
      * Closes the thread and the underlying stream.
      */

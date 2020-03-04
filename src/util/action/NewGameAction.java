@@ -2,11 +2,11 @@ package util.action;
 
 /**
  * Represents the action of starting a new game.
- * 
+ *
  * @author Hannes Illy
  */
 public class NewGameAction extends Action {
-    
+
     /**
      * Creates a new-game-action.
      */
@@ -18,9 +18,10 @@ public class NewGameAction extends Action {
     public byte[] encode() {
         return new byte[0];
     }
-    
+
     /**
      * Creates a new-game-action from the given data.
+     *
      * @param data The data for the action.
      * @return The created action.
      * @throws IllegalArgumentException If the given data length is invalid.
