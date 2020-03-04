@@ -1,24 +1,25 @@
 package model;
 
+/**
+ * A board on which different pieces can be placed. The pieces can be put into a column, where they fall down to the last empty field. This board can be use for a game of Four-in-a-row.
+ */
 public class Board {
     /**
      * the board where the pieces are placed: 0 = empty, 1 = player1, 2 = player2
      */
     private int[][] board;
-    
+
     /**
      * Creates a new board for the game "Four-in-a-row". There are two different pieces/colours and pieces can only be
      * placed in columns, where they are automatically put on top of the other pieces there.
-     * 
-     * @param rows
-     *            the number of rows
-     * @param columns
-     *            the number of columns
+     *
+     * @param rows    the number of rows
+     * @param columns the number of columns
      */
     public Board(int rows, int columns) {
         this.board = new int[columns][rows];
     }
-    
+
     /**
      * Creates a new board for the game "Four-in-a-row" in default size (7 cols, 6 rows). There are two different
      * pieces/colours and pieces can only be placed in columns, where they are automatically put on top of the other
@@ -27,32 +28,30 @@ public class Board {
     public Board() {
         this(6, 7);
     }
-    
+
     /**
      * Returns the board's number of rows.
-     * 
+     *
      * @return the number of rows
      */
     public int getRows() {
         return this.board[0].length;
     }
-    
+
     /**
      * Returns the board's number of columns.
-     * 
+     *
      * @return the number of columns
      */
     public int getColumns() {
         return this.board.length;
     }
-    
+
     /**
      * Checks whether the given coordinates are inside the bounds of the board, or if they are invalid.
-     * 
-     * @param column
-     *            the coordinate for the column
-     * @param row
-     *            the coordinate for the row
+     *
+     * @param column the coordinate for the column
+     * @param row    the coordinate for the row
      * @return if the coordinates are valid
      */
     private boolean areValidCoordinates(int column, int row) {
@@ -61,15 +60,13 @@ public class Board {
         }
         return false;
     }
-    
+
     /**
      * Places a piece on the board. The piece can either be 1 or 2. If this operation is successful it returns {@code true},
      * otherwise {@code false}.
-     * 
-     * @param column
-     *            the column, in which the piece is placed
-     * @param piece
-     *            the piece that is placed
+     *
+     * @param column the column, in which the piece is placed
+     * @param piece  the piece that is placed
      * @return if the piece could be placed
      */
     public boolean placePiece(int column, int piece) {
@@ -88,9 +85,10 @@ public class Board {
         }
         return false;
     }
-    
+
     /**
      * Checks if the board is full.
+     *
      * @return {@code true} if the board is full, {@code false} otherwise.
      */
     public boolean isFull() {
@@ -101,11 +99,12 @@ public class Board {
         }
         return true;
     }
-    
+
     /**
      * Returns the piece at the given coordinates. If the coordinates are invalid {@code -1} is returned.
+     *
      * @param column the column of the piece
-     * @param row the row of the piece
+     * @param row    the row of the piece
      * @return the piece or {@code -1} if the coordinates are invalid
      */
     public int getField(int column, int row) {
@@ -114,10 +113,10 @@ public class Board {
         }
         return -1;
     }
-    
+
     /**
      * Returns the row of the last piece in this column.
-     * 
+     *
      * @param column the column of the piece
      * @return the row of the last piece or {@code -1} if there is no piece or the column is invalid
      */

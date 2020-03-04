@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * A game of Four-in-a-row.
+ *
+ * @author Hannes Illy
+ */
 public class VierGewinnt {
 
     /**
@@ -247,7 +252,8 @@ public class VierGewinnt {
 
     /**
      * Sets the name of both players.
-     * @param firstPlayer The first player's name.
+     *
+     * @param firstPlayer  The first player's name.
      * @param secondPlayer The second player's name.
      */
     public void setPlayerNames(String firstPlayer, String secondPlayer) {
@@ -257,8 +263,9 @@ public class VierGewinnt {
 
     /**
      * Sets the name of the given player. The playerNumber has to be 1 or 2.
+     *
      * @param playerNumber The player number whose name is set.
-     * @param playerName The name of the player.
+     * @param playerName   The name of the player.
      */
     public void setPlayerName(int playerNumber, String playerName) {
         if (playerNumber == 1 || playerNumber == 2) {
