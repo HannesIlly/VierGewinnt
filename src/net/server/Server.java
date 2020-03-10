@@ -24,7 +24,7 @@ public class Server implements Runnable {
      * @param port
      *            The port on which the server is opened.
      * @throws IOException
-     *             If an {@link IOException} occurs when creating the server socket.
+     *             If an {@link IOException} occurs when cqreating the server socket.
      */
     public Server(int port) throws IOException {
         server = new ServerSocket(port);
@@ -62,8 +62,14 @@ public class Server implements Runnable {
      * Indicates to the server, that it should stop.
      */
     public void close() {
-        clientHandler.close();
         isClosed = true;
+
+        clientHandler.close();
+        try {
+            server.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }

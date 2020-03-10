@@ -1,6 +1,7 @@
 package util.action;
 
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -79,11 +80,17 @@ public class ActionInputDecoder implements Runnable {
         while (!isClosed) {
             try {
                 synchronized (in) {
-                    currentType = in.readByte();
+                    try {
+                        currentType = in.readByte();
+                    } catch (EOFException e) {
+                        // close this stream.
+                        currentType = -1;
+                        //e.printStackTrace();
+                    }
                 }
                 // if end of stream
                 if (currentType == -1) {
-                    this.isClosed = true;
+                    this.close();
                     break;
                 }
                 switch (types[currentType]) {
@@ -107,7 +114,7 @@ public class ActionInputDecoder implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("ActionType " + currentType + " does not exitst!");
+                System.out.println("ActionType " + currentType + " does not exist!");
             }
         }
     }
