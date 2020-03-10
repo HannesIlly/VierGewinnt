@@ -134,7 +134,6 @@ public class VierGewinnt {
     private boolean isWinningPiece(int x, int y) {
         // the pieces that (possibly) won the game
         int[][] pieces = new int[4][2];
-
         /*
          * 4 in a row when piece[x][y] == piece[x -1][y] 3 times in a row. So you have to count from e.g. 0 to 3 (three
          * increments), or 1 to 4
@@ -271,5 +270,13 @@ public class VierGewinnt {
         if (playerNumber == 1 || playerNumber == 2) {
             this.players[playerNumber - 1] = playerName;
         }
+    }
+
+    /**
+     * Resets the game. Clears the board and resets the player, that starts.
+     */
+    public void reset() {
+        this.currentPlayer = 0;
+        this.board = new Board();
     }
 }
