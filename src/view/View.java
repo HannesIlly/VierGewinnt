@@ -1,28 +1,6 @@
 package view;
 
-import javafx.application.Application;
-import javafx.event.Event;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import model.VierGewinnt;
-import net.Client;
-import net.server.Server;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
+/*
 public class View extends Application {
     // TextFields
     @FXML
@@ -108,7 +86,7 @@ public class View extends Application {
         
         // Create client (Join the server and start the client thread).
         try {
-            Client client = new Client(ipAddress, playerName.getText());
+            Client client = new Client(ipAddress, playerName.getText(), event -> System.out.println());
             new Thread(client).start();
         } catch (IOException ex) {
             errorPopup(ex.getMessage());
@@ -124,7 +102,7 @@ public class View extends Application {
             
             // Create client (Join the server and start the client thread).
             try {
-                Client client = new Client(InetAddress.getLocalHost(), playerName.getText());
+                Client client = new Client(InetAddress.getLocalHost(), playerName.getText(), event -> System.out.println());
                 new Thread(client).start();
             } catch (IOException ex) {
                 errorPopup(ex.getMessage());
@@ -136,7 +114,7 @@ public class View extends Application {
     
     /**
      * Closes the server and client.
-     */
+     *//*
     private void close() {
         if (server != null)
             server.close();
@@ -150,7 +128,7 @@ public class View extends Application {
      * 
      * @param message
      *            The error message.
-     */
+     *//*
     private void errorPopup(String message) {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -164,5 +142,5 @@ public class View extends Application {
         stage.setTitle("Ein Fehler ist aufgetreten!");
         stage.show();
     }
-    
 }
+    */

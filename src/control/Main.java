@@ -1,16 +1,7 @@
 package control;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import net.Client;
-import net.server.Server;
-
 public class Main {
-    
+    /*
     public static void main(String[] args) {
         String name = "";
         boolean createServer = false;
@@ -102,7 +93,7 @@ public class Main {
         
         System.out.println("Spiel wird beigetreten");
         try {
-            Client client = new Client(ipAddress, name);
+            Client client = new Client(ipAddress, name, e -> System.out.println(""));
             new Thread(client).start();
         } catch (UnknownHostException e) {
             System.out.println("Der Host " + ipAddress + " ist leider nicht korrekt.");
@@ -117,7 +108,7 @@ public class Main {
      * Ask the user to enter a name.
      * 
      * @return the name
-     */
+     *//*
     private static String inputName(BufferedReader in) {
         String name = "";
         System.out.println("Bitte Spielernamen eingeben: ");
@@ -134,5 +125,5 @@ public class Main {
             }
         }
     }
-    
+    */
 }
