@@ -33,7 +33,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'VierGewinnt.App'
+    mainClassName = 'view.Main'
 }
 
 javafx {
