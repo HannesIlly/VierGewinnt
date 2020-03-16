@@ -97,6 +97,7 @@ public class Main extends Application {
     private Parent loadFXML(String name) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setController(this);
+
         loader.setLocation(getClass().getResource(name));
         return loader.load();
     }
