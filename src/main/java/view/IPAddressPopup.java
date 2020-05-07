@@ -25,7 +25,7 @@ public class IPAddressPopup extends Popup {
     public IPAddressPopup(Window owner, EventHandler<TextInputEvent> joinAction) {
         super("Spiel beitreten", owner);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../resources/gui/IPAddressPopup.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/IPAddressPopup.fxml"));
         loader.setController(this);
         Parent root;
         try {
@@ -35,7 +35,7 @@ public class IPAddressPopup extends Popup {
             e.printStackTrace();
         }
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("gui/style.css");
+        scene.getStylesheets().add("view/gui/style.css");
 
         // close window
         cancelButton.setOnAction(e -> this.close());
