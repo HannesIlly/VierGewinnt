@@ -31,15 +31,15 @@ public class GameViewFX {
         this.game = game;
 
         // initialize canvas
-        int width = game.getBoard().getColumns() * (FIELD_SIZE + FIELD_MARGIN) - FIELD_MARGIN;
-        int height = game.getBoard().getRows() * (FIELD_SIZE + FIELD_MARGIN) - FIELD_MARGIN;
+        int width = game.getColumns() * (FIELD_SIZE + FIELD_MARGIN) - FIELD_MARGIN;
+        int height = game.getRows() * (FIELD_SIZE + FIELD_MARGIN) - FIELD_MARGIN;
         this.canvas = new Canvas(width, height);
         g = canvas.getGraphicsContext2D();
 
         // create the game view Parent
         VBox root = new VBox();
         root.getStyleClass().add("container");
-        Label title = new Label(game.getPlayers()[0] + " gegen " + game.getPlayers()[1]);
+        Label title = new Label(/*game.getPlayers()[0] + " gegen " + game.getPlayers()[1]*/);
         title.getStyleClass().add("h3");
         root.getChildren().add(title);
         root.getChildren().add(canvas);
@@ -105,8 +105,8 @@ public class GameViewFX {
     public void drawGame() {
         clearCanvas();
 
-        int width = game.getBoard().getColumns();
-        int height = game.getBoard().getRows();
+        int width = game.getColumns();
+        int height = game.getRows();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (x == hightlightColumn) {
@@ -135,7 +135,7 @@ public class GameViewFX {
         int x = (FIELD_SIZE + FIELD_MARGIN) * column;
         int y = (int) canvas.getHeight() - (FIELD_SIZE + FIELD_MARGIN) * (row + 1) + FIELD_MARGIN;
         int size = FIELD_SIZE;
-        switch (game.getBoard().getField(column, row)) {
+        switch (game.getField(column, row)) {
             case 1:
                 g.setFill(Color.RED);
                 g.fillOval(x, y, size, size);

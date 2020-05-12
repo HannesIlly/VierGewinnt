@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
 
-    private Board board;
-
     private static final int DEFAULT_COLUMNS = 7;
     private static final int DEFAULT_ROWS = 6;
 
@@ -16,7 +14,7 @@ public class BoardTest {
      */
     @Test
     public void BoardTest1() {
-        board = new Board();
+        Board board = new Board();
 
         assertEquals(DEFAULT_ROWS, board.getRows(), "The height of the standard board does not match.");
         assertEquals(DEFAULT_COLUMNS, board.getColumns(), "The width of the standard board does not match.");
@@ -29,7 +27,7 @@ public class BoardTest {
     public void BoardTest2() {
         int rows = 3;
         int columns = 2;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         assertEquals(rows, board.getRows(), "The height of the board does not match.");
         assertEquals(columns, board.getColumns(), "The width of the board does not match.");
@@ -42,7 +40,7 @@ public class BoardTest {
     public void BoardTest3() {
         int rows = 15;
         int columns = 15;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         assertEquals(rows, board.getRows(), "The height of the board does not match.");
         assertEquals(columns, board.getColumns(), "The width of the board does not match.");
@@ -55,7 +53,7 @@ public class BoardTest {
     public void BoardTest4() {
         int rows = 8;
         int columns = 1;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         assertEquals(rows, board.getRows(), "The height of the board does not match.");
         assertEquals(columns, board.getColumns(), "The width of the board does not match.");
@@ -67,7 +65,7 @@ public class BoardTest {
      */
     @Test
     public void getFieldTest1() {
-        board = new Board();
+        Board board = new Board();
 
         // valid coordinates (empty)
         assertEquals(0, board.getField(0, 0), "The returned value of the field is incorrect.");
@@ -91,7 +89,7 @@ public class BoardTest {
     public void getFieldTest2() {
         int rows = 9;
         int columns = 34;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         // valid coordinates (empty)
         assertEquals(0, board.getField(0, 0), "The returned value of the field is incorrect.");
@@ -113,7 +111,7 @@ public class BoardTest {
      */
     @Test
     public void placePieceTest1() {
-        board = new Board();
+        Board board = new Board();
 
         // piece 1
         assertTrue(board.placePiece(0, 1));
@@ -141,7 +139,7 @@ public class BoardTest {
      */
     @Test
     public void placePieceTest2() {
-        board = new Board();
+        Board board = new Board();
 
         // invalid locations
         assertFalse(board.placePiece(-1, 1));
@@ -154,7 +152,7 @@ public class BoardTest {
      */
     @Test
     public void placePieceTest3() {
-        board = new Board();
+        Board board = new Board();
 
         // invalid pieces
         assertFalse(board.placePiece(0, 0));
@@ -183,7 +181,7 @@ public class BoardTest {
     public void placePieceTest4() {
         int rows = 5;
         int columns = 4;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         // piece 1
         assertTrue(board.placePiece(0, 1));
@@ -213,7 +211,7 @@ public class BoardTest {
     public void placePieceTest5() {
         int rows = 9;
         int columns = 6;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         // invalid locations
         assertFalse(board.placePiece(-1, 1));
@@ -228,7 +226,7 @@ public class BoardTest {
     public void placePieceTest6() {
         int rows = 8;
         int columns = 7;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         // invalid pieces
         assertFalse(board.placePiece(0, 0));
@@ -255,7 +253,7 @@ public class BoardTest {
      */
     @Test
     public void placePieceTest7() {
-        board = new Board();
+        Board board = new Board();
 
         for (int i = 0; i < DEFAULT_ROWS; i++) {
             assertTrue(board.placePiece(0, 1));
@@ -275,7 +273,7 @@ public class BoardTest {
     public void placePieceTest8() {
         int rows = 13;
         int columns = 4;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         for (int i = 0; i < rows; i++) {
             assertTrue(board.placePiece(0, 1));
@@ -293,7 +291,7 @@ public class BoardTest {
      */
     @Test
     public void getLastPiecePositionTest1() {
-        board = new Board();
+        Board board = new Board();
 
         assertEquals(-1, board.getLastPiecePosition(-1));
         assertEquals(-1, board.getLastPiecePosition(0));
@@ -307,7 +305,7 @@ public class BoardTest {
      */
     @Test
     public void getLastPiecePositionTest2() {
-        board = new Board();
+        Board board = new Board();
 
         assertTrue(board.placePiece(0, 1));
         assertEquals(0, board.getLastPiecePosition(0));
@@ -326,7 +324,7 @@ public class BoardTest {
     public void getLastPiecePositionTest3() {
         int rows = 8;
         int columns = 12;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         assertEquals(-1, board.getLastPiecePosition(-1));
         assertEquals(-1, board.getLastPiecePosition(0));
@@ -343,7 +341,7 @@ public class BoardTest {
     public void getLastPiecePositionTest4() {
         int rows = 8;
         int columns = 12;
-        board = new Board(rows, columns);
+        Board board = new Board(rows, columns);
 
         assertTrue(board.placePiece(0, 1));
         assertTrue(board.placePiece(3, 2));
@@ -362,7 +360,7 @@ public class BoardTest {
      */
     @Test
     public void isFullTest1() {
-        board = new Board();
+        Board board = new Board();
 
         // empty board
         assertFalse(board.isFull());
@@ -388,7 +386,7 @@ public class BoardTest {
      */
     @Test
     public void isFullTest2() {
-        board = new Board();
+        Board board = new Board();
 
         for (int r = 0; r < DEFAULT_ROWS; r++) {
             for (int c = 0; c < DEFAULT_COLUMNS; c++) {
@@ -405,7 +403,7 @@ public class BoardTest {
     public void isFullTest3() {
         int rows = 8;
         int columns = 9;
-        board = new Board();
+        Board board = new Board();
 
         // empty board
         assertFalse(board.isFull());
@@ -432,7 +430,7 @@ public class BoardTest {
     public void isFullTest4() {
         int rows = 11;
         int columns = 16;
-        board = new Board();
+        Board board = new Board();
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
