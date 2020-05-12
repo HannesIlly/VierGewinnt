@@ -47,13 +47,7 @@ public class Board {
     }
     
     /**
-     * Chec
-     *
-     *
-     *
-     *
-     *
-     * ks whether the given coordinates are inside the bounds of the board, or if they are invalid.
+     * Checks whether the given coordinates are inside the bounds of the board, or if they are invalid.
      * 
      * @param column
      *            the coordinate for the column
