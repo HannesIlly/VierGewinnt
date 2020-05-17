@@ -62,8 +62,14 @@ public class Server implements Runnable {
      * Indicates to the server, that it should stop.
      */
     public void close() {
-        clientHandler.close();
         isClosed = true;
+
+        clientHandler.close();
+        try {
+            server.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
 }

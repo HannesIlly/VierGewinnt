@@ -3,18 +3,21 @@ package model;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * This class is a console view of the class {@link Board}.
+ */
 public class BoardView {
-    
+
     /**
      * The board, that this view is based on.
      */
     private Board board;
-    
+
     /**
      * The appearance of the numbers of the board - as characters in the output.
      */
     private Map<Integer, Character> appearance = new TreeMap<Integer, Character>();
-    
+
     /**
      * Creates a new console-view of the board.
      */
@@ -22,19 +25,17 @@ public class BoardView {
         this.board = board;
         this.setStandardAppearance();
     }
-    
+
     /**
      * Sets the character which is displayed for every field, that contains the given number.
-     * 
-     * @param number
-     *            the number, which is on the field
-     * @param symbol
-     *            the symbol, that represents the number
+     *
+     * @param number the number, which is on the field
+     * @param symbol the symbol, that represents the number
      */
     public void setAppearanceChar(int number, char symbol) {
         this.appearance.put(number, symbol);
     }
-    
+
     /**
      * Sets the appearance of the fields to the standard characters: 0: {@code' '}, 1: {@code'X'}, 2: {@code'O'}.
      */
@@ -44,10 +45,10 @@ public class BoardView {
         this.appearance.put(1, 'X');
         this.appearance.put(2, 'O');
     }
-    
+
     /**
      * Prints the whole board on the console. The appearance of the field numbers can be changed with
-     * {@link setStandardAppearance()} or {@code setAppearanceChar(int, char)}.
+     * {@code setStandardAppearance()} or {@code setAppearanceChar(int, char)}.
      */
     public void printBoard() {
         int currentRow = this.board.getRows() - 1;
@@ -59,12 +60,11 @@ public class BoardView {
             currentRow--;
         }
     }
-    
+
     /**
      * Prints a row with the content of the fields.
-     * 
-     * @param row
-     *            the row that is printed
+     *
+     * @param row the row that is printed
      */
     private void printRow(int row) {
         String line = "|";
@@ -78,7 +78,7 @@ public class BoardView {
         }
         System.out.println(line);
     }
-    
+
     /**
      * Prints a separator-row between two content-rows.
      */
@@ -89,7 +89,7 @@ public class BoardView {
         }
         System.out.println(line);
     }
-    
+
     /**
      * Prints the numbers from 1 to the number of columns of the board.
      */
@@ -100,5 +100,5 @@ public class BoardView {
         }
         System.out.println(line);
     }
-    
+
 }

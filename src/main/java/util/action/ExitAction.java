@@ -1,7 +1,7 @@
 package util.action;
 
 /**
- * Represents the viergewinnt.util.action of a player exiting the game or the server closing.
+ * Represents the action of a player exiting the game or the server closing.
  *
  * @author Hannes Illy
  */
@@ -20,7 +20,7 @@ public class ExitAction extends Action {
     private int exitType;
 
     /**
-     * Creates a exit-viergewinnt.util.action.
+     * Creates a exit-action.
      *
      * @param name The name of the player/server exiting the game.
      */
@@ -30,7 +30,7 @@ public class ExitAction extends Action {
     }
 
     /**
-     * Creates a exit-viergewinnt.util.action, where a player exits the game.
+     * Creates a exit-action, where a player exits the game.
      *
      * @param name The name of the player exiting the game.
      */
@@ -48,43 +48,19 @@ public class ExitAction extends Action {
     }
 
     /**
-     * Gets the exit type of this viergewinnt.util.action. Can be compared to the constants in this class.
+     * Gets the exit type of this action. Can be compared to the constants in this class.
      *
-     * @return The exit type of this exit-viergewinnt.util.action.
+     * @return The exit type of this exit-action.
      */
     public int getExitType() {
         return this.exitType;
     }
 
     @Override
-    public byte[] encode() {
-        byte[] nameData = name.getBytes();
-        byte[] data = new byte[nameData.length + 1];
-        data[0] = (byte) this.exitType;
-        for (int i = 0; i < nameData.length; i++) {
-            data[i + 1] = nameData[i];
-        }
-        return data;
+    public String toString() {
+        return "ExitAction{" +
+                "name='" + name + '\'' +
+                ", exitType=" + exitType +
+                "} " + super.toString();
     }
-
-    /**
-     * Creates a exit-viergewinnt.util.action from the given data.
-     *
-     * @param data The viergewinnt.util.action data.
-     * @return The created viergewinnt.util.action.
-     */
-    public static ExitAction decode(byte[] data) {
-        String name;
-        if (data.length > 0) {
-            byte[] nameData = new byte[data.length - 1];
-            for (int i = 0; i < nameData.length; i++) {
-                nameData[i] = data[i + 1];
-            }
-            name = String.valueOf(data);
-        } else {
-            name = "";
-        }
-        return new ExitAction(name, data[0]);
-    }
-
 }

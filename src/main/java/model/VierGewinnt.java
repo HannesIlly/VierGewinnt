@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * A game of Four-in-a-row.
+ *
+ * @author Hannes Illy
+ */
 public class VierGewinnt {
 
     /**
