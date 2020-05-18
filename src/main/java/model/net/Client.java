@@ -2,6 +2,7 @@ package net;
 
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import model.action.*;
 import util.action.*;
 import view.event.GameInputEvent;
 

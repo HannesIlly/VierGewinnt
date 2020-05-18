@@ -11,7 +11,7 @@ public abstract class Action {
     /**
      * The type of this action
      */
-    protected ActionType type;
+    protected final ActionType type;
 
     /**
      * Creates a new action with the given type. Should be used by subclasses, to create a new action. The action data

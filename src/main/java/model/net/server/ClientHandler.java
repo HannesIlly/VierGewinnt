@@ -1,6 +1,10 @@
 package net.server;
 
 import model.VierGewinnt;
+import model.action.Action;
+import model.action.ExitAction;
+import model.action.NewPlayerAction;
+import model.action.PutAction;
 import util.action.*;
 
 import java.io.IOException;

@@ -17,7 +17,7 @@ public class ActionInputDecoder implements Runnable {
     /**
      * The input stream, from which the data is read.
      */
-    private DataInputStream in;
+    private final DataInputStream in;
     /**
      * If the stream is already closed and cannot be read anymore.
      */
@@ -26,7 +26,7 @@ public class ActionInputDecoder implements Runnable {
      * The queue in which the decoded actions are stored. The access to it is possible via the {@code getAction()}
      * method. Both the method and the addition of actions to the queue are synchronized.
      */
-    private Queue<Action> actions;
+    private final Queue<Action> actions;
 
     /**
      * Creates a new input decoder. This runnable has to be started in a thread, to begin reading and decoding the data
@@ -107,9 +107,7 @@ public class ActionInputDecoder implements Runnable {
                         this.addAction(new ExitAction(in.readUTF(), in.readInt()));
                         break;
                     case message:
-                        /*
                         this.addAction(new MessageAction(in.readUTF(), in.readUTF(), in.readUTF()));
-                         */
                     default:
                         throw new IllegalArgumentException("Illegal action type. type = " + types[currentType]);
                 }

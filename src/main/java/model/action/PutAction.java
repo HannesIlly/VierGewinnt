@@ -10,11 +10,11 @@ public class PutAction extends Action {
     /**
      * The column, where the piece is put.
      */
-    private int column;
+    private final int column;
     /**
      * The piece, which is put in the column.
      */
-    private int piece;
+    private final int piece;
 
     /**
      * Creates a new put-action with the given column and piece.

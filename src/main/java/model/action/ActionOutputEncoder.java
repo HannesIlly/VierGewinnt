@@ -49,11 +49,9 @@ public class ActionOutputEncoder {
                     out.writeInt(((ExitAction) action).getExitType());
                     break;
                 case message:
-                    /*
                     out.writeUTF(((MessageAction) action).getSource());
                     out.writeUTF(((MessageAction) action).getDestination());
                     out.writeUTF(((MessageAction) action).getMessage());
-                     */
                 default:
                     throw new IllegalArgumentException("Illegal action type. type = " + action.getType());
             }

@@ -10,7 +10,7 @@ public class NewPlayerAction extends Action {
     /**
      * The name of the player.
      */
-    private String name;
+    private final String name;
 
     /**
      * Creates a new-player-action with the given player name.

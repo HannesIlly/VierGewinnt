@@ -1,8 +1,8 @@
 package net.server;
 
-import util.action.Action;
-import util.action.ActionInputDecoder;
-import util.action.ActionOutputEncoder;
+import model.action.Action;
+import model.action.ActionInputDecoder;
+import model.action.ActionOutputEncoder;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

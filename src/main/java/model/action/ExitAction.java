@@ -13,7 +13,7 @@ public class ExitAction extends Action {
     /**
      * The name of the player/server exiting the game/server.
      */
-    private String name;
+    private final String name;
     /**
      * If a player exits the game or the server closes..
      */

@@ -7,9 +7,9 @@ package util.action;
  */
 public class MessageAction extends Action {
 
-    private String source;
-    private String destination;
-    private String message;
+    private final String source;
+    private final String destination;
+    private final String message;
 
     /**
      * Creates a new message action with the given source, destination and message.
