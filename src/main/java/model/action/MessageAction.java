@@ -1,4 +1,6 @@
-package util.action;
+package model.action;
+
+import java.util.Objects;
 
 /**
  * Represents the action of one entity (player/server) sending a message to someone else.
@@ -56,5 +58,20 @@ public class MessageAction extends Action {
                 ", destination='" + destination + '\'' +
                 ", message='" + message + '\'' +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MessageAction that = (MessageAction) o;
+        return Objects.equals(getSource(), that.getSource()) &&
+                Objects.equals(getDestination(), that.getDestination()) &&
+                Objects.equals(getMessage(), that.getMessage());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSource(), getDestination(), getMessage());
     }
 }

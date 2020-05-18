@@ -14,8 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.VierGewinnt;
-import net.Client;
-import net.server.Server;
+import model.net.Client;
+import model.net.server.Server;
 import view.event.GameInputEvent;
 
 import java.io.IOException;

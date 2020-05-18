@@ -1,4 +1,4 @@
-package util.action;
+package model.action;
 
 /**
  * The different types of actions.

@@ -1,4 +1,4 @@
-package util.action;
+package model.action;
 
 /**
  * This class represents an action, which can be executed by the game. An action can be encoded in order to send it via

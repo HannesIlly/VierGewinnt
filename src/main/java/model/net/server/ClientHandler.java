@@ -1,11 +1,10 @@
-package net.server;
+package model.net.server;
 
 import model.VierGewinnt;
 import model.action.Action;
 import model.action.ExitAction;
 import model.action.NewPlayerAction;
 import model.action.PutAction;
-import util.action.*;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -54,7 +53,7 @@ public class ClientHandler implements Runnable {
                                 case newPlayer:
                                     NewPlayerAction newPlayerAction = (NewPlayerAction) currentAction;
                                     connections[currentConnectionNumber].setName(newPlayerAction.getName());
-                                    game.setPlayerName(currentConnectionNumber, newPlayerAction.getName());
+                                    //game.setPlayerName(currentConnectionNumber, newPlayerAction.getName());
                                     for (int i = 0; i < connections.length; i++) {
                                         if (i != currentConnectionNumber) {
                                             c.writeAction(currentAction);
@@ -79,7 +78,7 @@ public class ClientHandler implements Runnable {
                                             c.writeAction(currentAction);
                                         }
                                     }
-                                    this.game.reset();
+                                    //this.game.reset();
                                     break;
                                 case exit:
                                     //ExitAction exitAction = (ExitAction) currentAction;

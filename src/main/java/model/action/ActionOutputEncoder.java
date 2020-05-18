@@ -1,4 +1,4 @@
-package util.action;
+package model.action;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

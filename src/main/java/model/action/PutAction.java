@@ -1,4 +1,6 @@
-package util.action;
+package model.action;
+
+import java.util.Objects;
 
 /**
  * The action, when a player puts a piece on the board (in a column).
@@ -51,5 +53,19 @@ public class PutAction extends Action {
                 "column=" + column +
                 ", piece=" + piece +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PutAction putAction = (PutAction) o;
+        return getColumn() == putAction.getColumn() &&
+                getPiece() == putAction.getPiece();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getColumn(), getPiece());
     }
 }

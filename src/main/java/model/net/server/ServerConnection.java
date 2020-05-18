@@ -1,4 +1,4 @@
-package net.server;
+package model.net.server;
 
 import model.action.Action;
 import model.action.ActionInputDecoder;

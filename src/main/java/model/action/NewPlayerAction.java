@@ -1,4 +1,6 @@
-package util.action;
+package model.action;
+
+import java.util.Objects;
 
 /**
  * Represents the action of a new player joining the game.
@@ -36,4 +38,16 @@ public class NewPlayerAction extends Action {
         return super.toString() + ", name=" + this.name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewPlayerAction that = (NewPlayerAction) o;
+        return Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName());
+    }
 }

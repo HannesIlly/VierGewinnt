@@ -1,4 +1,6 @@
-package util.action;
+package model.action;
+
+import java.util.Objects;
 
 /**
  * Represents the action of a player exiting the game or the server closing.
@@ -17,7 +19,7 @@ public class ExitAction extends Action {
     /**
      * If a player exits the game or the server closes..
      */
-    private int exitType;
+    private final int exitType;
 
     /**
      * Creates a exit-action.
@@ -27,6 +29,7 @@ public class ExitAction extends Action {
     public ExitAction(String name, int exitType) {
         super(ActionType.exit);
         this.name = name;
+        this.exitType = exitType;
     }
 
     /**
@@ -62,5 +65,19 @@ public class ExitAction extends Action {
                 "name='" + name + '\'' +
                 ", exitType=" + exitType +
                 "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExitAction that = (ExitAction) o;
+        return getExitType() == that.getExitType() &&
+                Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getExitType());
     }
 }
