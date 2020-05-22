@@ -11,7 +11,7 @@ public class NewGameAction extends Action {
      * Creates a new-game-action.
      */
     public NewGameAction() {
-        super(ActionType.newGame);
+        super(Action.TYPE_NEW_GAME);
     }
 
     @Override

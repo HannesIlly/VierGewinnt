@@ -34,24 +34,28 @@ public class ActionOutputEncoder {
             return;
 
         try {
+            // write action type
+            out.write(action.getType());
+            // write action data
             switch (action.getType()) {
-                case newPlayer:
+                case Action.TYPE_NEW_PLAYER:
                     out.writeUTF(((NewPlayerAction) action).getName());
                     break;
-                case put:
+                case Action.TYPE_PUT:
                     out.writeInt(((PutAction) action).getColumn());
                     out.writeInt(((PutAction) action).getPiece());
                     break;
-                case newGame:
+                case Action.TYPE_NEW_GAME:
                     break;
-                case exit:
+                case Action.TYPE_EXIT:
                     out.writeUTF(((ExitAction) action).getName());
                     out.writeInt(((ExitAction) action).getExitType());
                     break;
-                case message:
+                case Action.TYPE_MESSAGE:
                     out.writeUTF(((MessageAction) action).getSource());
                     out.writeUTF(((MessageAction) action).getDestination());
                     out.writeUTF(((MessageAction) action).getMessage());
+                    break;
                 default:
                     throw new IllegalArgumentException("Illegal action type. type = " + action.getType());
             }

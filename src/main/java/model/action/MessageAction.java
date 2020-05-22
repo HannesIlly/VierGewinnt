@@ -17,7 +17,7 @@ public class MessageAction extends Action {
      * Creates a new message action with the given source, destination and message.
      */
     protected MessageAction(String source, String destination, String message) {
-        super(ActionType.message);
+        super(Action.TYPE_MESSAGE);
 
         this.source = source;
         this.destination = destination;

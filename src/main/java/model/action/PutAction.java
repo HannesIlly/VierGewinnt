@@ -24,7 +24,7 @@ public class PutAction extends Action {
      * @param column the column, where the piece is put.
      */
     public PutAction(int column, int piece) {
-        super(ActionType.put);
+        super(Action.TYPE_PUT);
         this.column = column;
         this.piece = piece;
     }

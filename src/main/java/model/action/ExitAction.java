@@ -27,7 +27,7 @@ public class ExitAction extends Action {
      * @param name The name of the player/server exiting the game.
      */
     public ExitAction(String name, int exitType) {
-        super(ActionType.exit);
+        super(Action.TYPE_EXIT);
         this.name = name;
         this.exitType = exitType;
     }

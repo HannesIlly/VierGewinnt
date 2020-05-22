@@ -50,7 +50,7 @@ public class ClientHandler implements Runnable {
                         currentConnectionNumber = c.getConnectionNumber();
                         if ((currentAction = c.readAction()) != null) {
                             switch (currentAction.getType()) {
-                                case newPlayer:
+                                case Action.TYPE_NEW_PLAYER:
                                     NewPlayerAction newPlayerAction = (NewPlayerAction) currentAction;
                                     connections[currentConnectionNumber].setName(newPlayerAction.getName());
                                     //game.setPlayerName(currentConnectionNumber, newPlayerAction.getName());
@@ -60,7 +60,7 @@ public class ClientHandler implements Runnable {
                                         }
                                     }
                                     break;
-                                case put:
+                                case Action.TYPE_PUT:
                                     PutAction putAction = (PutAction) currentAction;
                                     if (game != null && game.placePiece(putAction.getColumn(), currentConnectionNumber + 1)) {
                                         for (int i = 0; i < connections.length; i++) {
@@ -72,7 +72,7 @@ public class ClientHandler implements Runnable {
                                         // TODO error
                                     }
                                     break;
-                                case newGame:
+                                case Action.TYPE_NEW_GAME:
                                     for (int i = 0; i < connections.length; i++) {
                                         if (i != currentConnectionNumber) {
                                             c.writeAction(currentAction);
@@ -80,7 +80,7 @@ public class ClientHandler implements Runnable {
                                     }
                                     //this.game.reset();
                                     break;
-                                case exit:
+                                case Action.TYPE_EXIT:
                                     //ExitAction exitAction = (ExitAction) currentAction;
                                     for (int i = 0; i < connections.length; i++) {
                                         if (i != currentConnectionNumber) {
@@ -89,7 +89,7 @@ public class ClientHandler implements Runnable {
                                     }
                                     this.close();
                                     break;
-                                case message:
+                                case Action.TYPE_MESSAGE:
                                     break;
                                 default:
                                     throw new IllegalArgumentException("Illegal action type. type = " + currentAction.getType());

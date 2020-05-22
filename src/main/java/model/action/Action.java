@@ -8,10 +8,17 @@ package model.action;
  */
 public abstract class Action {
 
+    public static final int TYPE_UNDEFINED = 0;
+    public static final int TYPE_EXIT = 1;
+    public static final int TYPE_MESSAGE = 2;
+    public static final int TYPE_NEW_GAME = 3;
+    public static final int TYPE_NEW_PLAYER = 4;
+    public static final int TYPE_PUT = 5;
+
     /**
      * The type of this action
      */
-    protected final ActionType type;
+    protected final int type;
 
     /**
      * Creates a new action with the given type. Should be used by subclasses, to create a new action. The action data
@@ -19,18 +26,20 @@ public abstract class Action {
      *
      * @param type The type of the action
      */
-    protected Action(ActionType type) {
+    protected Action(int type) {
         this.type = type;
     }
 
     /**
      * Gets the type of this action.
      *
-     * @return The {@link ActionType}.
+     * @return The {@link int}.
      */
-    public ActionType getType() {
+    public int getType() {
         return this.type;
     }
+
+
 
     /**
      * Gets the action type as a string. Other actions might want to override this method to additionally return action data.
@@ -38,7 +47,25 @@ public abstract class Action {
      * @return The action in its string representation.
      */
     public String toString() {
-        return this.type.toString();
+        String s = null;
+        switch (this.type) {
+            case TYPE_EXIT:
+                s = "exit action";
+                break;
+            case TYPE_MESSAGE:
+                s = "message action";
+                break;
+            case TYPE_NEW_GAME:
+                s = "new game action";
+                break;
+            case TYPE_NEW_PLAYER:
+                s = "new player action";
+                break;
+            case TYPE_PUT:
+                s = "put action";
+                break;
+        }
+        return s;
     }
 
 }

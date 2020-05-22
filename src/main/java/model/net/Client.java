@@ -77,21 +77,21 @@ public class Client implements Runnable {
         while (!isClosed) {
             if ((currentAction = in.getAction()) != null) {
                 switch (currentAction.getType()) {
-                    case newPlayer:
+                    case Action.TYPE_NEW_PLAYER:
                         NewPlayerAction newPlayerAction = (NewPlayerAction) currentAction;
                         gameInputHandler.handle(new GameInputEvent(newPlayerAction.getName()));
                         break;
-                    case put:
+                    case Action.TYPE_PUT:
                         PutAction putAction = (PutAction) currentAction;
                         gameInputHandler.handle(new GameInputEvent(putAction.getColumn()));
                         break;
-                    case newGame:
+                    case Action.TYPE_NEW_GAME:
                         NewGameAction newGameAction = (NewGameAction) currentAction;
                         break;
-                    case exit:
+                    case Action.TYPE_EXIT:
                         ExitAction exitAction = (ExitAction) currentAction;
                         break;
-                    case message:
+                    case Action.TYPE_MESSAGE:
                         break;
                     default:
                         throw new IllegalArgumentException("Illegal action type. type = " + currentAction.getType());

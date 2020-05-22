@@ -74,8 +74,7 @@ public class ActionInputDecoder implements Runnable {
 
     @Override
     public void run() {
-        int currentType = -1;
-        ActionType[] types = ActionType.values();
+        int currentType = Action.TYPE_UNDEFINED;
 
         while (!isClosed) {
             try {
@@ -84,37 +83,44 @@ public class ActionInputDecoder implements Runnable {
                         currentType = in.readByte();
                     } catch (EOFException e) {
                         // close this stream.
-                        currentType = -1;
-                        //e.printStackTrace();
+                        currentType = Action.TYPE_UNDEFINED;
+                        System.out.println("Could not read action. End of File!");
                     }
                 }
                 // if end of stream
-                if (currentType == -1) {
+                if (currentType == Action.TYPE_UNDEFINED) {
                     this.close();
                     break;
                 }
-                switch (types[currentType]) {
-                    case newPlayer:
+
+                switch (currentType) {
+                    case Action.TYPE_NEW_PLAYER:
                         this.addAction(new NewPlayerAction(in.readUTF()));
                         break;
-                    case put:
+                    case Action.TYPE_PUT:
                         this.addAction(new PutAction(in.readInt(), in.readInt()));
                         break;
-                    case newGame:
+                    case Action.TYPE_NEW_GAME:
                         this.addAction(new NewGameAction());
                         break;
-                    case exit:
-                        this.addAction(new ExitAction(in.readUTF(), in.readInt()));
+                    case Action.TYPE_EXIT:
+                        String name = in.readUTF();
+                        int exitType = in.readInt();
+
+                        this.addAction(new ExitAction(name, exitType));
                         break;
-                    case message:
-                        this.addAction(new MessageAction(in.readUTF(), in.readUTF(), in.readUTF()));
+                    case Action.TYPE_MESSAGE:
+                        String source = in.readUTF();
+                        String destination = in.readUTF();
+                        String message = in.readUTF();
+
+                        this.addAction(new MessageAction(source, destination, message));
+                        break;
                     default:
-                        throw new IllegalArgumentException("Illegal action type. type = " + types[currentType]);
+                        System.out.println("Illegal action type. type = " + currentType);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("ActionType " + currentType + " does not exist!");
             }
         }
     }

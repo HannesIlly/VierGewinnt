@@ -20,7 +20,7 @@ public class NewPlayerAction extends Action {
      * @param name The name of the new player.
      */
     public NewPlayerAction(String name) {
-        super(ActionType.newPlayer);
+        super(Action.TYPE_NEW_PLAYER);
         this.name = name;
     }
 
