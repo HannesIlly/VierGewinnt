@@ -15,6 +15,9 @@ public class ActionTest {
 
     private static final File file = new File("test_file");
 
+    /*
+     * The input stream should only be used, when all contents were written to the file by the output stream.
+     */
     private static InputStream inputStream;
     private static OutputStream outputStream;
 
@@ -336,12 +339,12 @@ public class ActionTest {
         try {
             ActionOutputEncoder out = new ActionOutputEncoder(outputStream);
             ActionInputDecoder in = new ActionInputDecoder(inputStream);
-            new Thread(in).start();
 
             // send action (empty NewGameAction)
             Action outputAction = new NewGameAction();
             out.send(outputAction);
             // read action
+            new Thread(in).start();
             Action inputAction = readActionTimeout(in, TIMEOUT);
             // compare
             assertEquals(outputAction, inputAction);
@@ -361,15 +364,14 @@ public class ActionTest {
         try {
             ActionOutputEncoder out = new ActionOutputEncoder(outputStream);
             ActionInputDecoder in = new ActionInputDecoder(inputStream);
-            new Thread(in).start();
 
             // send action
             Action outputAction = new ExitAction("TEST");
             out.send(outputAction);
             // read action
+            new Thread(in).start();
             Action inputAction = readActionTimeout(in, TIMEOUT);
-            // compare TODO continue here
-            // TODO Exit/NewPlayer
+            // compare
             assertEquals(outputAction, inputAction);
 
             in.close();
@@ -387,16 +389,65 @@ public class ActionTest {
         try {
             ActionOutputEncoder out = new ActionOutputEncoder(outputStream);
             ActionInputDecoder in = new ActionInputDecoder(inputStream);
-            new Thread(in).start();
 
             // send action
             Action outputAction = new MessageAction("testSrc", "testDest", "TEST");
             out.send(outputAction);
             // read action
+            new Thread(in).start();
             Action inputAction = readActionTimeout(in, TIMEOUT);
             // compare
             assertEquals(outputAction, inputAction);
-            // TODO Message/NewPlayer
+
+            in.close();
+            out.close();
+        } catch (TimeoutException e) {
+            fail("The action could not be read within the given timeout.");
+        }
+    }
+
+    /**
+     * Tests sending and receiving a {@link model.action.NewPlayerAction}.
+     */
+    @Test
+    public void getActionTest5() {
+        try {
+            ActionOutputEncoder out = new ActionOutputEncoder(outputStream);
+            ActionInputDecoder in = new ActionInputDecoder(inputStream);
+
+            // send action
+            Action outputAction = new NewPlayerAction("NewPlayEr");
+            out.send(outputAction);
+            // read action
+            new Thread(in).start();
+            Action inputAction = readActionTimeout(in, TIMEOUT);
+            // compare
+            assertEquals(outputAction, inputAction);
+
+            in.close();
+            out.close();
+        } catch (TimeoutException e) {
+            fail("The action could not be read within the given timeout.");
+        }
+    }
+
+    /**
+     * Tests sending and receiving a {@link model.action.PutAction}.
+     */
+    @Test
+    public void getActionTest6() {
+        try {
+            ActionOutputEncoder out = new ActionOutputEncoder(outputStream);
+            ActionInputDecoder in = new ActionInputDecoder(inputStream);
+
+            // send action
+            Action outputAction = new PutAction(5, 9);
+            out.send(outputAction);
+            // read action
+            new Thread(in).start();
+            Action inputAction = readActionTimeout(in, TIMEOUT);
+            // compare
+            assertEquals(outputAction, inputAction);
 
             in.close();
             out.close();
@@ -406,18 +457,8 @@ public class ActionTest {
     }
 
     @Test
-    public void getActionTest5() {
-
-    }
-
-    @Test
-    public void getActionTest6() {
-
-    }
-
-    @Test
     public void getActionTest7() {
-
+        // TODO test sending multiple actions
     }
 
 }
