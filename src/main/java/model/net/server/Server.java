@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server implements Runnable {
+
+    public static final int DEFAULT_PORT = 46841;
     /**
      * The server that can accept incoming connection attempts.
      */
@@ -40,10 +42,7 @@ public class Server implements Runnable {
      *             If an {@link IOException} occurs when creating the server socket.
      */
     public Server() throws IOException {
-        server = new ServerSocket(46841);
-        clientHandler = new ClientHandler();
-        
-        new Thread(clientHandler).start();
+        this(DEFAULT_PORT);
     }
     
     @Override
