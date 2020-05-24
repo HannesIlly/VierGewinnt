@@ -39,7 +39,7 @@ public abstract class Action {
         return this.type;
     }
 
-
+    // TODO write executeAction(Lobby/Game) method
 
     /**
      * Gets the action type as a string. Other actions might want to override this method to additionally return action data.
