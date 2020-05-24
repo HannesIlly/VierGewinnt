@@ -1,5 +1,7 @@
 package model.action;
 
+import model.GameController;
+
 /**
  * This class represents an action, which can be executed by the game. An action can be encoded in order to send it via
  * a network.
@@ -39,7 +41,7 @@ public abstract class Action {
         return this.type;
     }
 
-    // TODO write executeAction(Lobby/Game) method
+    public abstract boolean executeAction(GameController g);
 
     /**
      * Gets the action type as a string. Other actions might want to override this method to additionally return action data.

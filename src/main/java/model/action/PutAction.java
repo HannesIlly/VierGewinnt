@@ -1,5 +1,7 @@
 package model.action;
 
+import model.GameController;
+
 import java.util.Objects;
 
 /**
@@ -45,6 +47,14 @@ public class PutAction extends Action {
      */
     public int getPiece() {
         return this.piece;
+    }
+
+    @Override
+    public boolean executeAction(GameController g) {
+        if (g.hasStarted()) {
+            return g.getGame().placePiece(this.column, this.piece);
+        }
+        return false;
     }
 
     @Override

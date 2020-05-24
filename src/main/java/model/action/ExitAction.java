@@ -1,5 +1,7 @@
 package model.action;
 
+import model.GameController;
+
 import java.util.Objects;
 
 /**
@@ -57,6 +59,13 @@ public class ExitAction extends Action {
      */
     public int getExitType() {
         return this.exitType;
+    }
+
+    @Override
+    public boolean executeAction(GameController g) {
+        // TODO Change name to playernumber
+        // TODO What to do when the server closes?
+        return false;
     }
 
     @Override

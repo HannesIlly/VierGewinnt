@@ -1,5 +1,8 @@
 package model.action;
 
+import model.GameController;
+import model.Player;
+
 import java.util.Objects;
 
 /**
@@ -31,6 +34,12 @@ public class NewPlayerAction extends Action {
      */
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public boolean executeAction(GameController g) {
+        // TODO The index is ignored. will it be used somewhere else?
+        return g.getLobby().join(new Player(this.name)) != -1;
     }
 
     @Override

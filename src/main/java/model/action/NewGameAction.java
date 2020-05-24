@@ -1,5 +1,7 @@
 package model.action;
 
+import model.GameController;
+
 /**
  * Represents the action of starting a new game.
  *
@@ -12,6 +14,13 @@ public class NewGameAction extends Action {
      */
     public NewGameAction() {
         super(Action.TYPE_NEW_GAME);
+    }
+
+
+
+    @Override
+    public boolean executeAction(GameController g) {
+        return g.startGame();
     }
 
     @Override

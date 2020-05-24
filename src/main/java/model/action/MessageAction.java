@@ -1,5 +1,7 @@
 package model.action;
 
+import model.GameController;
+
 import java.util.Objects;
 
 /**
@@ -49,6 +51,12 @@ public class MessageAction extends Action {
      */
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public boolean executeAction(GameController g) {
+        // TODO How are messages stored? --> probably in the GameController
+        return false;
     }
 
     @Override
